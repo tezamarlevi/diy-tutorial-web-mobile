@@ -16,8 +16,7 @@ const PORT = process.env.PORT || 5001;
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://ecommerce-web-m1fm.onrender.com" // Your Render backend
-    // process.env.CLIENT_URL // For Netlify (add later)
+    "https://heritageecommerce.netlify.app"
 ].filter(Boolean); // Remove undefined values
 
 app.use(cors({
