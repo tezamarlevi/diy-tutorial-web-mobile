@@ -16,8 +16,8 @@ const PORT = process.env.PORT || 5001;
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://ecommerce-web-m1fm.onrender.com", // Your Render backend
-    process.env.CLIENT_URL // For Netlify (add later)
+    "https://ecommerce-web-m1fm.onrender.com" // Your Render backend
+    // process.env.CLIENT_URL // For Netlify (add later)
 ].filter(Boolean); // Remove undefined values
 
 app.use(cors({
@@ -44,7 +44,7 @@ app.use("/api/product", productRoute);
 app.use("/api/auth", authRoutes);
 
 connectDB().then(() => {
-    app.listen(PORT, '0.0.0.0', () => {  // ← ADDED '0.0.0.0' HERE
+    app.listen(PORT, '0.0.0.0', () => { 
         console.log("Server started on PORT:", PORT);
     });
 });
