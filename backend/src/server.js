@@ -44,7 +44,7 @@ app.use("/api/product", productRoute);
 app.use("/api/auth", authRoutes);
 
 connectDB().then(() => {
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {  // ← ADDED '0.0.0.0' HERE
         console.log("Server started on PORT:", PORT);
     });
 });
