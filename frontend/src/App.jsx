@@ -1,7 +1,8 @@
-import { Routes, Route } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { usePageTracking } from './hooks/usePageTracking'; // ADD THIS
 import ProtectedRoute from './components/ProtectedRoute';
-import Navbar from './components/Navbar';  // ← ADD THIS
+import Navbar from './components/Navbar';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import HomePage from './pages/HomePage.jsx';
@@ -10,10 +11,12 @@ import ProductDetailPage from './pages/ProductDetailPage.jsx';
 import Footer from './components/Footer.jsx';
 
 const App = () => {
+  usePageTracking(); // ADD THIS - Tracks all page views automatically
+
   return (
     <AuthProvider>
       <div className="min-h-screen flex flex-col">
-        <Navbar />  {/* ← ADD THIS */}
+        <Navbar />
         
         <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24" />
         
@@ -22,7 +25,6 @@ const App = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             
-            {/* Protected routes - redirect to login if not authenticated */}
             <Route 
               path="/" 
               element={

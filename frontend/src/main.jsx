@@ -4,6 +4,10 @@ import './index.css';
 import App from './App.jsx';
 import { BrowserRouter } from 'react-router';
 import { Toaster } from 'react-hot-toast';
+import ReactGA from 'react-ga4';
+
+// Initialize Google Analytics
+ReactGA.initialize(import.meta.env.VITE_GA_MEASUREMENT_ID);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -12,4 +16,4 @@ createRoot(document.getElementById('root')).render(
       <Toaster/>
     </BrowserRouter>
   </StrictMode>
-); 
+);
