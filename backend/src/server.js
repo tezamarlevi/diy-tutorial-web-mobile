@@ -2,10 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import productRoute from "./routes/productRoutes.js";
+import tutorialRoutes from "./routes/tutorialRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import { connectDB } from "./config/db.js";
-import ratelimiter from "./middleware/rateLimiter.js";
+
 
 dotenv.config();
 
@@ -23,7 +23,7 @@ app.use(cors({
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or Postman)
         if (!origin) return callback(null, true);
-        
+
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
@@ -36,14 +36,14 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use(ratelimiter);
+
 
 // Routes
-app.use("/api/product", productRoute);
+app.use("/api/tutorials", tutorialRoutes);
 app.use("/api/auth", authRoutes);
 
 connectDB().then(() => {
-    app.listen(PORT, '0.0.0.0', () => { 
+    app.listen(PORT, '0.0.0.0', () => {
         console.log("Server started on PORT:", PORT);
     });
 });

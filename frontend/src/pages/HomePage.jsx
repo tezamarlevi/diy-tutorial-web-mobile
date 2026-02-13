@@ -1,53 +1,68 @@
 import { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar.jsx';
-import RateLimitedUI from '../components/RateLimitedUI.jsx';
 import api from '../lib/axios.js';
 import { toast } from 'react-hot-toast';
-import ProductCard from '../components/ProductCard.jsx';
-import ProductNotFound from '../components/ProductNotFound.jsx';
+import TutorialCard from '../components/TutorialCard.jsx';
+import TutorialNotFound from '../components/TutorialNotFound.jsx';
 
 
 const HomePage = () => {
-  const [isRateLimited, setIsRateLimited] = useState(false);
-  const [product, setProducts] = useState([]);
+  const [tutorials, setTutorials] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchTutorials = async () => {
       try {
-        const res = await api.get('/product');
-        console.log(res.data);
-        setProducts(res.data);
-        setIsRateLimited(false);
+        const res = await api.get('/tutorials');
+        console.log("Fetched tutorials:", res.data);
+        setTutorials(res.data);
       } catch (error) {
-        console.error('Error fetching products:', error);
-        console.log(error);
-        if (error.response?.status === 429) {
-          setIsRateLimited(true);
-        } else {
-          toast.error('Failed to fetch products. Please try again later.');
-        }
+        console.error('Error fetching tutorials:', error);
+        toast.error('Failed to fetch tutorials. Please try again later.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProducts();
+    fetchTutorials();
   }, []);
 
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen bg-base-100'>
+      {/* Hero Section */}
+      <div className="hero bg-base-200 py-16 mb-8">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Master New Skills
+            </h1>
+            <p className="py-6 text-lg">
+              Unlock your potential with our community-driven DIY tutorials. Learn, create, and share your own projects today.
+            </p>
+            <button
+              className="btn btn-primary btn-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+              onClick={() => document.getElementById('tutorials-grid').scrollIntoView({ behavior: 'smooth' })}
+            >
+              Start Learning
+            </button>
+          </div>
+        </div>
+      </div>
 
-      {isRateLimited && <RateLimitedUI />}
-      <div className='max-w-7xl mx-auto p-4 mt-6'>
-        {loading && <div className="text-center text-primary py-10">Loading products...</div>}
+      <div id="tutorials-grid" className='max-w-7xl mx-auto p-4'>
+        <h2 className="text-3xl font-bold mb-8 pl-2 border-l-4 border-primary">Latest Tutorials</h2>
 
-        {product.length === 0 && !isRateLimited && <ProductNotFound />}
+        {loading && (
+          <div className="flex justify-center py-20">
+            <span className="loading loading-spinner loading-lg text-primary"></span>
+          </div>
+        )}
 
-        {product.length > 0 && !isRateLimited && (
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {product.map((product) => (
-              <ProductCard key={product._id} product={product} setProducts={setProducts} />
+        {!loading && tutorials.length === 0 && <TutorialNotFound />}
+
+        {tutorials.length > 0 && (
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+            {tutorials.map((tutorial) => (
+              <TutorialCard key={tutorial._id} tutorial={tutorial} />
             ))}
           </div>
         )}
