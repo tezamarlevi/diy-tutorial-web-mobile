@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 
 // Use your Mac's local IP so physical devices can connect
 // Both your phone and Mac must be on the same Wi-Fi network
-const API_URL = 'http://192.168.18.105:5001/api';
+const API_URL = 'https://diy-tutorial-web-mobile.onrender.com/api';
 
 const api = axios.create({
     baseURL: API_URL,

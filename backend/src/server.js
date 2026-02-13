@@ -16,7 +16,8 @@ const PORT = process.env.PORT || 5001;
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://heritageecommerce.netlify.app"
+    "https://heritageecommerce.netlify.app",
+    "https://diy-tutorial-web-mobile.onrender.com"
 ].filter(Boolean); // Remove undefined values
 
 app.use(cors({
