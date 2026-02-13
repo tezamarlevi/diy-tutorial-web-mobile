@@ -17,7 +17,8 @@ const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
     "https://heritageecommerce.netlify.app",
-    "https://diy-tutorial-web-mobile.onrender.com"
+    "https://diy-tutorial-web-mobile.onrender.com",
+    "https://diy-tutorial-web.netlify.app"
 ].filter(Boolean); // Remove undefined values
 
 app.use(cors({
