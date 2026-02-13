@@ -6,14 +6,15 @@ import { BrowserRouter } from 'react-router';
 import { Toaster } from 'react-hot-toast';
 import ReactGA from 'react-ga4';
 
-// Initialize Google Analytics
-ReactGA.initialize(import.meta.env.VITE_GA_MEASUREMENT_ID);
+// Initialize Google Analytics (only if measurement ID is set)
+const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+if (gaId) ReactGA.initialize(gaId);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <App />
-      <Toaster/>
+      <Toaster />
     </BrowserRouter>
   </StrictMode>
 );
