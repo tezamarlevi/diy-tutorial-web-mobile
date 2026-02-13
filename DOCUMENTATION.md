@@ -10,7 +10,7 @@
 1. [Project Overview](#1-project-overview)
 2. [Technology Stack](#2-technology-stack)
 3. [Project Structure](#3-project-structure)
-4. [Getting Started](#4-getting-started)
+4. [Getting Started (Local Development)](#4-getting-started-local-development)
 5. [Backend API Documentation](#5-backend-api-documentation)
 6. [Database Schema](#6-database-schema)
 7. [Frontend Web App](#7-frontend-web-app)
@@ -18,7 +18,8 @@
 9. [Authentication](#9-authentication)
 10. [Environment Variables](#10-environment-variables)
 11. [Deployment](#11-deployment)
-12. [Troubleshooting](#12-troubleshooting)
+12. [Live URLs](#12-live-urls)
+13. [Troubleshooting](#13-troubleshooting)
 
 ---
 
@@ -35,6 +36,7 @@ DIY Tutorials is a full-stack platform for the Karang Taruna RT007/RW013 communi
 - **Default Thumbnail** — Auto-applies an Unsplash image when no custom image is provided
 - **Read-Only Learning Page** — Dedicated page for learning with no edit controls
 - **Mobile App** — Expo/React Native app with the same features
+- **Deployed** — Backend on Render, Frontend on Netlify
 
 ---
 
@@ -79,70 +81,74 @@ DIY Tutorials is a full-stack platform for the Karang Taruna RT007/RW013 communi
 
 ```
 diy-tutorial-web/
-├── backend/                     # Node.js + Express API
+├── DOCUMENTATION.md              # This file
+├── backend/                      # Node.js + Express API
 │   ├── src/
 │   │   ├── config/
-│   │   │   └── db.js            # MongoDB connection
+│   │   │   └── db.js             # MongoDB connection
 │   │   ├── controllers/
-│   │   │   ├── authController.js    # Login, Register, GetMe
+│   │   │   ├── authController.js     # Login, Register, GetMe
 │   │   │   └── tutorialController.js # CRUD for tutorials
 │   │   ├── middleware/
 │   │   │   └── authMiddleware.js     # JWT verification
 │   │   ├── models/
-│   │   │   ├── User.js           # User schema
-│   │   │   └── Tutorial.js       # Tutorial schema
+│   │   │   ├── User.js            # User schema
+│   │   │   └── Tutorial.js        # Tutorial schema
 │   │   ├── routes/
-│   │   │   ├── authRoutes.js     # /api/auth/*
-│   │   │   └── tutorialRoutes.js # /api/tutorials/*
-│   │   └── server.js             # Express app entry
-│   ├── .env                      # Environment variables
+│   │   │   ├── authRoutes.js      # /api/auth/*
+│   │   │   └── tutorialRoutes.js  # /api/tutorials/*
+│   │   └── server.js              # Express app entry
+│   ├── .env                       # Environment variables (gitignored)
 │   └── package.json
 │
-├── frontend/                    # React + Vite Web App
+├── frontend/                     # React + Vite Web App
+│   ├── public/
+│   │   └── _redirects             # Netlify SPA routing
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Navbar.jsx        # Navigation bar
-│   │   │   ├── Footer.jsx        # Footer
-│   │   │   ├── TutorialCard.jsx  # Tutorial card component
+│   │   │   ├── Navbar.jsx         # Navigation bar
+│   │   │   ├── Footer.jsx         # Footer
+│   │   │   ├── TutorialCard.jsx   # Tutorial card component
 │   │   │   └── ProtectedRoute.jsx # Auth guard
 │   │   ├── context/
-│   │   │   └── AuthContext.jsx   # Auth state management
+│   │   │   └── AuthContext.jsx    # Auth state management
 │   │   ├── lib/
-│   │   │   └── axios.js          # Axios instance + JWT interceptor
+│   │   │   └── axios.js           # Axios instance + JWT interceptor
 │   │   ├── pages/
-│   │   │   ├── LoginPage.jsx     # Login screen
-│   │   │   ├── RegisterPage.jsx  # Register screen
-│   │   │   ├── HomePage.jsx      # Tutorial listing
+│   │   │   ├── LoginPage.jsx      # Login screen
+│   │   │   ├── RegisterPage.jsx   # Register screen
+│   │   │   ├── HomePage.jsx       # Tutorial listing
 │   │   │   ├── CreateTutorialPage.jsx  # Create tutorial form
 │   │   │   ├── TutorialLearnPage.jsx   # Read-only learning page
 │   │   │   └── TutorialDetailPage.jsx  # Edit tutorial (creator only)
-│   │   ├── App.jsx               # Routes & layout
-│   │   └── main.jsx              # Entry point
+│   │   ├── App.jsx                # Routes & layout
+│   │   └── main.jsx               # Entry point
+│   ├── .env                       # Local API URL (gitignored)
 │   ├── index.html
 │   └── package.json
 │
-└── mobile/                      # Expo React Native App
-    ├── app/                      # expo-router screens
-    │   ├── _layout.js            # Root layout + AuthProvider
-    │   ├── index.js              # Auth redirect
-    │   ├── login.js              # Login screen
-    │   ├── register.js           # Register screen
-    │   ├── home.js               # Tutorial list
-    │   ├── create.js             # Create tutorial form
+└── mobile/                       # Expo React Native App
+    ├── app/                       # expo-router screens
+    │   ├── _layout.js             # Root layout + AuthProvider
+    │   ├── index.js               # Auth redirect
+    │   ├── login.js               # Login screen
+    │   ├── register.js            # Register screen
+    │   ├── home.js                # Tutorial list
+    │   ├── create.js              # Create tutorial form
     │   └── tutorial/[id]/
-    │       ├── index.js          # Learn page + YouTube
-    │       └── edit.js           # Edit page (creator only)
+    │       ├── index.js           # Learn page + YouTube
+    │       └── edit.js            # Edit page (creator only)
     ├── src/
-    │   ├── api.js                # Axios + JWT via SecureStore
-    │   ├── AuthContext.js        # Auth state management
-    │   └── theme.js              # Colors, fonts, shadows
-    ├── app.json                  # Expo configuration
+    │   ├── api.js                 # Axios + JWT via SecureStore
+    │   ├── AuthContext.js         # Auth state management
+    │   └── theme.js               # Colors, fonts, shadows
+    ├── app.json                   # Expo configuration
     └── package.json
 ```
 
 ---
 
-## 4. Getting Started
+## 4. Getting Started (Local Development)
 
 ### Prerequisites
 - **Node.js** v18 or higher ([download](https://nodejs.org))
@@ -154,8 +160,8 @@ diy-tutorial-web/
 
 #### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/your-username/diy-tutorial-web.git
-cd diy-tutorial-web
+git clone https://github.com/tezamarlevi/diy-tutorial-web-mobile.git
+cd diy-tutorial-web-mobile
 ```
 
 #### Step 2: Install Backend Dependencies
@@ -206,7 +212,7 @@ Find your Mac's IP:
 ipconfig getifaddr en0
 ```
 
-### Running the App
+### Running the App Locally
 
 #### Terminal 1 — Start Backend
 ```bash
@@ -234,9 +240,12 @@ npx expo start
 ## 5. Backend API Documentation
 
 ### Base URL
-```
-http://localhost:5001/api
-```
+| Environment | Base URL |
+|-------------|----------|
+| Local | `http://localhost:5001/api` |
+| Production (Render) | `https://diy-tutorial-web-mobile.onrender.com/api` |
+
+---
 
 ### Authentication Endpoints
 
@@ -386,6 +395,13 @@ Same body as POST. Returns the updated tutorial.
 }
 ```
 
+### Testing API with Postman
+
+1. **Register:** POST to `https://diy-tutorial-web-mobile.onrender.com/api/auth/register` with `name`, `email`, `password` in the body
+2. **Login:** POST to `https://diy-tutorial-web-mobile.onrender.com/api/auth/login` — copy the `token` from the response
+3. **Use token:** In Postman, go to **Authorization → Bearer Token** → paste the token
+4. **CRUD tutorials:** Use the token for all `/api/tutorials` requests
+
 ---
 
 ## 6. Database Schema
@@ -435,8 +451,8 @@ Same body as POST. Returns the updated tutorial.
 | Edit Tutorial | `/tutorial/:id/edit` | Edit form — only accessible by the creator |
 
 ### Key Components
-- **Navbar** — Navigation bar with logo, links, and user menu (hidden on auth pages)
-- **Footer** — Community credit: "© 2026 Karang Taruna RT007/RW013 DIY Tutorials" (hidden on auth pages)
+- **Navbar** — Navigation bar with logo, links, and user menu (hidden on login/register pages)
+- **Footer** — Community credit: "© 2026 Karang Taruna RT007/RW013 DIY Tutorials" (hidden on login/register pages)
 - **TutorialCard** — Displays tutorial thumbnail, title, level badge, duration, creator name
 - **ProtectedRoute** — Redirects unauthenticated users to `/login`
 
@@ -444,7 +460,14 @@ Same body as POST. Returns the updated tutorial.
 - **Theme:** DaisyUI `nord` theme
 - **Primary Color:** Green palette (#2D6A4F)
 - **Auth Pages:** Split-layout with decorative gradient panel + form card
-- **Fonts:** System defaults via Tailwind
+- **CSS Framework:** Tailwind CSS + DaisyUI
+
+### SPA Routing on Netlify
+The file `frontend/public/_redirects` contains:
+```
+/*    /index.html   200
+```
+This ensures all routes are handled by React Router instead of returning 404.
 
 ---
 
@@ -471,11 +494,18 @@ Same body as POST. Returns the updated tutorial.
 6. The app opens in Expo Go
 
 ### Updating the API URL
-When your Mac's IP changes (different Wi-Fi network), update `mobile/src/api.js`:
+The mobile app connects to the deployed Render backend by default (`mobile/src/api.js`):
 ```javascript
-const API_URL = 'http://<YOUR_NEW_IP>:5001/api';
+const API_URL = 'https://diy-tutorial-web-mobile.onrender.com/api';
+```
+
+For local development, change it to your Mac's local IP:
+```javascript
+const API_URL = 'http://<YOUR_MAC_IP>:5001/api';
 ```
 Find your IP: `ipconfig getifaddr en0`
+
+> ⚠️ **Important:** If using a physical device, disable VPN/DNS blockers (e.g., DNSGuard) that may block local network requests.
 
 ### Theme Colors
 ```javascript
@@ -518,7 +548,6 @@ error:        '#EF4444'   // Red
 ### JWT Token
 - **Algorithm:** HS256
 - **Payload:** `{ id: userId }`
-- **Expiration:** Configured in the auth controller
 - **Storage:**
   - Web: `localStorage.setItem('token', token)`
   - Mobile: `SecureStore.setItemAsync('token', token)`
@@ -534,111 +563,226 @@ All tutorial endpoints require the `Authorization: Bearer <token>` header. The `
 
 ## 10. Environment Variables
 
-### Backend (`backend/.env`)
+### Backend (`backend/.env`) — gitignored
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `MONGO_URI` | MongoDB Atlas connection string | `mongodb+srv://user:pass@cluster.mongodb.net/diy_db` |
 | `JWT_SECRET` | Secret key for JWT signing | `30358b047c7d...` (64 chars hex) |
 | `PORT` | Server port number | `5001` |
-| `node_env` | Environment mode | `development` |
+| `node_env` | Environment mode | `development` or `production` |
 
-### Frontend (`frontend/.env`)
-| Variable | Description | Example |
-|----------|-------------|---------|
+### Frontend (`frontend/.env`) — gitignored
+| Variable | Description | Local Value |
+|----------|-------------|-------------|
 | `VITE_API_URL` | Backend API base URL | `http://localhost:5001/api` |
 
-### Mobile (`mobile/src/api.js`)
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `API_URL` | Backend API URL (Mac's local IP) | `http://192.168.18.105:5001/api` |
+> On Netlify, set `VITE_API_URL` to `https://diy-tutorial-web-mobile.onrender.com/api` in the dashboard.
 
-> 🔴 **Important:** Never commit `.env` files to Git. Add them to `.gitignore`.
+### Mobile (`mobile/src/api.js`) — hardcoded
+| Variable | Description | Production Value |
+|----------|-------------|------------------|
+| `API_URL` | Backend API URL | `https://diy-tutorial-web-mobile.onrender.com/api` |
+
+> 🔴 **Important:** Never commit `.env` files to Git. They are already in `.gitignore`.
 
 ---
 
 ## 11. Deployment
 
-### Backend Deployment (Railway / Render)
-
-1. Push your code to GitHub
-2. Create a new project on [Railway](https://railway.app) or [Render](https://render.com)
-3. Connect your GitHub repository
-4. Set the **root directory** to `backend`
-5. Set **build command:** `npm install`
-6. Set **start command:** `npm start` (make sure `package.json` has a start script)
-7. Add environment variables:
-   - `MONGO_URI` — your MongoDB Atlas URI
-   - `JWT_SECRET` — your secret key
-   - `PORT` — `5001` (or let the platform assign)
-   - `node_env` — `production`
-
-### Frontend Deployment (Netlify / Vercel)
-
-1. Create a new site on [Netlify](https://netlify.com) or [Vercel](https://vercel.com)
-2. Connect your GitHub repository
-3. Set the **base directory** to `frontend`
-4. Set **build command:** `npm run build`
-5. Set **publish directory:** `frontend/dist`
-6. Add environment variable:
-   - `VITE_API_URL` — your deployed backend URL (e.g., `https://your-api.railway.app/api`)
-
-### Mobile Deployment (Expo EAS)
-
-1. Install EAS CLI: `npm install -g eas-cli`
-2. Login: `eas login`
-3. Configure: `eas build:configure`
-4. Build for Android: `eas build --platform android`
-5. Build for iOS: `eas build --platform ios` (requires Apple Developer account)
+### Architecture Diagram
+```
+┌─────────────┐     HTTPS      ┌─────────────┐     HTTPS      ┌─────────────┐
+│   Netlify   │ ─────────────▶ │   Render    │ ─────────────▶ │  MongoDB    │
+│  (Frontend) │                │  (Backend)  │                │   Atlas     │
+│             │                │             │                │             │
+│ React+Vite  │  API requests  │ Express.js  │   Database     │  Cloud DB   │
+│ Static Site │ ─────────────▶ │ Node.js     │ ─────────────▶ │             │
+└─────────────┘                └─────────────┘                └─────────────┘
+                                     ▲
+                                     │ API requests
+                               ┌─────────────┐
+                               │  Expo Go    │
+                               │  (Mobile)   │
+                               │ React Native│
+                               └─────────────┘
+```
 
 ---
 
-## 12. Troubleshooting
+### Backend Deployment (Render)
+
+**Platform:** [Render](https://render.com)
+**Repository:** `https://github.com/tezamarlevi/diy-tutorial-web-mobile.git`
+
+#### Render Settings
+| Setting | Value |
+|---------|-------|
+| **Language** | Node |
+| **Branch** | `main` |
+| **Region** | Singapore (Southeast Asia) |
+| **Root Directory** | `backend` |
+| **Build Command** | `npm install` |
+| **Start Command** | `node src/server.js` |
+
+#### Render Environment Variables
+| Key | Value |
+|-----|-------|
+| `MONGO_URI` | Your MongoDB Atlas connection string |
+| `JWT_SECRET` | Your JWT secret key |
+
+> `PORT` and `node_env` are optional — Render assigns its own port.
+
+#### Deployed Backend URL
+```
+https://diy-tutorial-web-mobile.onrender.com
+```
+
+---
+
+### Frontend Deployment (Netlify)
+
+**Platform:** [Netlify](https://netlify.com)
+**Repository:** `https://github.com/tezamarlevi/diy-tutorial-web-mobile.git`
+
+#### Netlify Settings
+| Setting | Value |
+|---------|-------|
+| **Branch to deploy** | `main` |
+| **Base directory** | `frontend` |
+| **Build command** | `npm run build` |
+| **Publish directory** | `dist` |
+
+> ⚠️ Publish directory is `dist` (not `frontend/dist`) because the base directory is already `frontend`.
+
+#### Netlify Environment Variables
+| Key | Value |
+|-----|-------|
+| `VITE_API_URL` | `https://diy-tutorial-web-mobile.onrender.com/api` |
+
+#### Deployed Frontend URL
+```
+https://diy-tutorial-web.netlify.app
+```
+
+---
+
+### Mobile App Deployment (Expo EAS) — Optional
+
+For building standalone APK/IPA files:
+
+1. Install EAS CLI:
+```bash
+npm install -g eas-cli
+```
+
+2. Login to Expo:
+```bash
+eas login
+```
+
+3. Configure your project:
+```bash
+cd mobile
+eas build:configure
+```
+
+4. Build for Android (APK):
+```bash
+eas build --platform android --profile preview
+```
+
+5. Build for iOS (requires Apple Developer account — $99/year):
+```bash
+eas build --platform ios
+```
+
+---
+
+### CORS Configuration
+
+The backend allows requests from the following origins (`backend/src/server.js`):
+
+```javascript
+const allowedOrigins = [
+    "http://localhost:5173",          // Local frontend dev
+    "http://localhost:5174",          // Local frontend alt port
+    "https://heritageecommerce.netlify.app",
+    "https://diy-tutorial-web-mobile.onrender.com",
+    "https://diy-tutorial-web.netlify.app"   // Netlify frontend
+];
+```
+
+Mobile apps and Postman requests are also allowed (requests with no `Origin` header).
+
+---
+
+## 12. Live URLs
+
+| Service | URL |
+|---------|-----|
+| **Backend API** | https://diy-tutorial-web-mobile.onrender.com |
+| **Frontend Web** | https://diy-tutorial-web.netlify.app |
+| **GitHub Repo** | https://github.com/tezamarlevi/diy-tutorial-web-mobile |
+| **Mobile App** | Install Expo Go → scan QR from `npx expo start` |
+
+---
+
+## 13. Troubleshooting
 
 ### Common Issues
 
 #### "Login failed" on Mobile
 - **Cause:** Wrong API URL or phone can't reach the backend
 - **Fix:**
-  1. Make sure backend is running (`npm run dev` in backend/)
-  2. Check `mobile/src/api.js` has your Mac's correct IP (`ipconfig getifaddr en0`)
-  3. Phone and Mac must be on the **same Wi-Fi**
+  1. Make sure backend is running (or deployed on Render)
+  2. Check `mobile/src/api.js` has the correct URL
+  3. For local dev: phone and Mac must be on the **same Wi-Fi**
   4. Disable VPN/DNS blockers (e.g., DNSGuard) temporarily
+
+#### Blank Page on Netlify
+- **Cause:** Missing `_redirects` file or env var
+- **Fix:**
+  1. Ensure `frontend/public/_redirects` exists with content: `/*    /index.html   200`
+  2. Set `VITE_API_URL` in Netlify dashboard environment variables
+  3. Publish directory should be `dist` (not `frontend/dist`)
+
+#### Blank Page on localhost
+- **Cause:** Missing or invalid environment variable crashing React
+- **Fix:** Check browser console (F12) for errors. Common: Google Analytics init failing without `VITE_GA_MEASUREMENT_ID`
 
 #### "Port 5001 is already in use"
 ```bash
 # Find what's using port 5001
 lsof -i :5001 | grep LISTEN
-
 # Kill the process
 kill -9 <PID>
-
 # Restart the backend
 npm run dev
 ```
 
 #### "CORS Error" in Browser
 - Check `backend/src/server.js` — make sure your frontend URL is in `allowedOrigins`
-- Mobile apps don't need CORS (they send no `Origin` header)
+- After adding, commit, push, and redeploy on Render
 
 #### MongoDB Connection Failed
-- Check your `MONGO_URI` in `.env`
-- Whitelist your IP in MongoDB Atlas: **Network Access → Add IP → Allow Access from Anywhere**
+- Check your `MONGO_URI` in `.env` or Render env vars
+- Whitelist your IP in MongoDB Atlas: **Network Access → Add IP → Allow Access from Anywhere** (set to `0.0.0.0/0`)
 - Make sure your database user password has no special characters that need URL encoding
+
+#### Render Deployment Issues
+- **Start command** should be `node src/server.js` (not `npm run dev`)
+- **Root directory** must be `backend`
+- Check Render logs for errors in the dashboard
 
 #### Expo Build Warnings
 ```
 react-native-screens@4.23.0 - expected version: ~4.16.0
 ```
-These are just warnings and won't prevent the app from running. To fix:
+These are just warnings. To fix:
 ```bash
 cd mobile
 npx expo install react-native-screens react-native-webview
 ```
-
-#### Tutorial Not Showing After Create
-- Check browser console / Expo logs for API errors
-- Make sure the backend returned 201 status
-- Pull to refresh on mobile or reload the home page
 
 ---
 
